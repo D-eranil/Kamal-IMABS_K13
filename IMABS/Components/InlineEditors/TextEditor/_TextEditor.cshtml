@@ -1,0 +1,12 @@
+﻿@model IMABS.Components.InlineEditors.TextEditor.TextEditorViewModel
+
+@using (Html.Kentico().BeginInlineEditor("text-editor", Model.PropertyName,
+  new
+  {
+      @class = "text-editor",
+      contenteditable = "true",
+      data_enable_formatting = Model.EnableFormatting.ToString()
+  }))
+{
+    @Html.Raw(Model.Text)
+}

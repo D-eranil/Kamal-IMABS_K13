@@ -1,0 +1,12 @@
+﻿@using Kentico.Web.Mvc
+@using Kentico.Forms.Web.Mvc
+@using IMABS.Components.FormComponents.IconSelectorDropDown
+
+@model IconSelectorDropDownComponent
+
+@{
+    var htmlAttributes = ViewData.Kentico().GetEditorHtmlAttributes();
+}
+
+@* Invoking a Get operation on the component's 'Items' property executes the GetItems method. *@
+@Html.DropDownListFor(x => x.SelectedValue, Model.HtmlOptions.ToSelectListItems(), null, htmlAttributes)

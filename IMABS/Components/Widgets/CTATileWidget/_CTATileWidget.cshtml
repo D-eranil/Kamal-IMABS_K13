@@ -1,0 +1,16 @@
+﻿@model IMABS.Components.Widgets.CTATileWidget.CTATileWidgetViewModel
+
+@{
+	string redirectionurl = (!string.IsNullOrEmpty(Model.RedirectionUrl)) ? Model.RedirectionUrl.Length > 0 ? Model.RedirectionUrl : "#" : "#" ;
+	var image = Model.Image != null ? Url.Content(CMS.MediaLibrary.MediaLibraryHelper.GetDirectUrl(Model.Image)) : "";
+}
+
+	<a href="@redirectionurl" class="panel icon-panel" target="_blank">
+		<!-- Editable Tool Anchor URL -->
+		<div class="row flex-container">
+			<div class="col-lg-9">
+				<h4>@Model.Title</h4><!--Tool heading - Editable Text Field-->
+			</div>
+			<div class="col-lg-3"><img src="@image"></div>
+		</div>
+	</a>

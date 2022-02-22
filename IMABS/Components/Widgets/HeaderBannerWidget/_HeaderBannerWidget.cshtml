@@ -1,0 +1,73 @@
+﻿@using IMABS.Components.InlineEditors.TextEditor
+@using IMABS.Components.Widgets.HeaderBannerWidget
+@using Kentico.PageBuilder.Web.Mvc
+
+@model IMABS.Components.Widgets.HeaderBannerWidget.HeaderBannerWidgetViewModel
+
+@{
+	var mobileImage = Model.MobileImage != null ? Url.Content(CMS.MediaLibrary.MediaLibraryHelper.GetDirectUrl(Model.MobileImage)) : "";
+	var tabletImage = Model.TabletImage != null ? Url.Content(CMS.MediaLibrary.MediaLibraryHelper.GetDirectUrl(Model.TabletImage)) : "";
+	var desktopImage = Model.DesktopImage != null ? Url.Content(CMS.MediaLibrary.MediaLibraryHelper.GetDirectUrl(Model.DesktopImage)) : "";
+}
+
+<link href="~/Content/Page/HeaderBannerWidget.css" rel="stylesheet" />
+
+<div class="section hero service-banner @(Model.Background=="none"?"":Model.Background)">
+	<div class="service-banner-img">
+		<div class="container">
+			<div class="row">
+				<!--Banner images are not editable-->
+				<img src="@mobileImage" class="w-100 carousel-img-mobile" alt="...">
+				<img src="@tabletImage" class="w-100 carousel-img-tablet" alt="...">
+				<img src="@desktopImage" class="w-100 carousel-img-desktop" alt="...">
+			</div>
+		</div>
+	</div>
+	<div class="service-banner-title">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-7">
+					@if (Context.Kentico().PageBuilder().EditMode)
+					{
+						<partial name="~/Components/InlineEditors/TextEditor/_TextEditor.cshtml"
+								 model="new TextEditorViewModel
+                        {
+                            PropertyName = nameof(HeaderBannerWidgetProperties.Title),
+                            Text = Model.Title,
+                        }" />
+					}
+					else
+					{
+						<h2 class="page-title text-black">@Html.Raw(Model.Title)</h2><!--This is the page title-->
+					}
+					@if (Context.Kentico().PageBuilder().EditMode)
+					{
+						<partial name="~/Components/InlineEditors/TextEditor/_TextEditor.cshtml"
+								 model="new TextEditorViewModel
+                        {
+                            PropertyName = nameof(HeaderBannerWidgetProperties.SubTitle),
+                            Text = Model.SubTitle,
+                        }" />
+					}
+					else
+					{
+						<h3 class="tagline integrity-blue3 mb-4">@Html.Raw(Model.SubTitle)</h3><!-- Tagline - Editable Text Field-->
+					}
+					@if (Context.Kentico().PageBuilder().EditMode)
+					{
+						<partial name="~/Components/InlineEditors/TextEditor/_TextEditor.cshtml"
+								 model="new TextEditorViewModel
+                        {
+                            PropertyName = nameof(HeaderBannerWidgetProperties.Description),
+                            Text = Model.Description,
+                        }" />
+					}
+					else
+					{
+						<p class="text-black mb-0">@Html.Raw(Model.Description)</p><!-- Intro Blurb - Editable Text Field-->
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

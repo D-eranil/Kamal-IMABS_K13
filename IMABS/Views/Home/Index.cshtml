@@ -1,0 +1,185 @@
+﻿@using Kentico.PageBuilder.Web.Mvc
+@using Kentico.Web.Mvc
+
+@model IMABS.Models.Homes.HomeViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@{
+    string[] allowTextWidgets = { PagebuilderIdentifiers.TEXTWIDGET_IDENTIFIER };
+    string[] allowCTAButtonWidgets = { PagebuilderIdentifiers.CTABUTTONWIDGET_IDENTIFIER };
+    string[] allowFeatureWidget = { PagebuilderIdentifiers.FEATUREWIDGET_IDENTIFIER };
+    string[] allowAtAGlanceWidget = { PagebuilderIdentifiers.ATAGLANCEWIDGET_IDENTIFIER };
+}
+
+<link href="/Content/Page/HomeBanner.css" rel="stylesheet" />
+
+<!-- SECTION - HERO CAROUSEL -->
+<div class="hero" id="home">
+    <div class="container-fluid g-0">
+        <div class="row g-0">
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    @{ var itemCount = 0;}
+                    @foreach (var item in Model.bannerSections)
+                    {
+                        string ImageURLDesktop = Url.Kentico().ImageUrl(item.BannerImage, SizeConstraint.Size(2400, 860));
+                        string ImageURLTablet = Url.Kentico().ImageUrl(item.BannerImage, SizeConstraint.Size(2044, 1149));
+                        string ImageURLMobile = Url.Kentico().ImageUrl(item.BannerImage, SizeConstraint.Size(960, 960));
+
+                        <div class='@(itemCount==0?"carousel-item active":"carousel-item")'>
+
+                            <img src="@ImageURLMobile" class="w-100 carousel-img-mobile" alt="...">
+                            <img src="@ImageURLTablet" class="w-100 carousel-img-tablet" alt="...">
+                            <img src="@ImageURLDesktop" class="w-100 carousel-img-desktop" alt="...">
+
+                            <div class="carousel-caption flex-container">
+                                <div class="container g-0">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h1>@item.BannerHeading</h1>
+                                            <p>
+                                                <a href="@item.ButtonRedirectionUrl" class="btn btn-secondary btn-brand reverse">@item.ButtonLinkName</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        itemCount++;
+                    }
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="whats-new">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="row-list">
+                        <li>
+                            <h6>
+                                <editable-area area-identifier="BannerTitle" area-options-allowed-widgets="@allowTextWidgets" />
+                                @*@Html.Kentico().EditableArea("BannerTitle", allowedWidgets: allowTextWidgets)*@
+                            </h6>
+                        </li>
+                        @{ var sliderItemCount = 0; }
+                        @foreach (var item in Model.bannerSections)
+                        {
+                            <li>
+                                <a data-bs-target="#carouselExampleCaptions" aria-label='@("Slide "+ (sliderItemCount+1))' class=@(sliderItemCount==0?"active":"") aria-current="true" data-bs-slide-to="@sliderItemCount" href="javascript:void(0);">@item.BannerHeading</a>
+                            </li>
+                            sliderItemCount++;
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SECTION - WHY INGRAM MICRO -->
+<div class="section" id="why-ingram-micro">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h6>
+                    <editable-area area-identifier="WhyIMTitle" area-options-allowed-widgets="@allowTextWidgets" />
+                    @*@Html.Kentico().EditableArea("WhyIMTitle", allowedWidgets: allowTextWidgets)*@
+                </h6>
+            </div>
+        </div>
+        <div class="row" id="complete-solution-provider">
+
+            <div class="col-lg-4 panel">
+                <h3>
+                    <editable-area area-identifier="WhyIMSubTitle" area-options-allowed-widgets="@allowTextWidgets" />
+                    @*@Html.Kentico().EditableArea("WhyIMSubTitle", allowedWidgets: allowTextWidgets)*@
+                </h3>
+                <ul class="solution-navigator">
+                    @foreach (var item in Model.whyIngramOptions)
+                    {
+                        <li><p><a class="csp-show" target="@item.NavigationLink.Replace(" ","").Replace("&","")">@item.NavigationLink</a></p></li>
+                    }
+                </ul>
+            </div>
+
+            @foreach (var item in Model.whyIngramOptions)
+            {
+                <div class="col-lg-8 panel csp-targetdiv" style="background-image:url(@item.BackgroundImage)" id="csp-@item.NavigationLink.Replace(" ","").Replace("&","")">
+                    <div class="csp-content">
+                        <p>@item.ImageHeading</p>
+                        <ul class="row-list">
+                            @foreach (var linkitem in item.ActionLinks)
+                            {
+                                <li class="float-end">
+                                    <a href="@linkitem.ItemUrl">@linkitem.ItemName &nbsp;&nbsp;<i class="@linkitem.ItemIconClass"></i></a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div>
+        <editable-area area-identifier="featureArea" area-options-default-section-identifier="IMABS.ThreeColumnSection"
+                       area-options-allowed-widgets="@allowFeatureWidget" />
+        @*@Html.Kentico().EditableArea("featureArea", defaultSectionIdentifier: "IMABS.ThreeColumnSection", allowedWidgets: allowFeatureWidget)*@
+
+    </div>
+</div>
+
+
+<!-- SECTION - AT A GLANCE -->
+<div class="section" id="at-a-glance">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h6>
+                    <editable-area area-identifier="atAGlanceTitleArea"
+                                   area-options-allowed-widgets="@allowTextWidgets" />
+                    @*@Html.Kentico().EditableArea("atAGlanceTitleArea", allowedWidgets: allowTextWidgets)*@
+                </h6>
+                <h3>
+                    <editable-area area-identifier="atAGlanceSubTitleArea"
+                                   area-options-allowed-widgets="@allowTextWidgets" />
+                    @*@Html.Kentico().EditableArea("atAGlanceSubTitleArea", allowedWidgets: allowTextWidgets)*@
+                </h3>
+            </div>
+        </div>
+
+        <editable-area area-identifier="atAGlanceArea1"
+                       area-options-default-section-identifier="@IMABS.Components.PagebuilderIdentifiers.FOURCOLUMNSECTION_IDENTIFIER"
+                       area-options-allowed-widgets="@allowAtAGlanceWidget" />
+        @*@Html.Kentico().EditableArea("atAGlanceArea1", defaultSectionIdentifier: "IMABS.FourColumnSection",
+            allowedWidgets: allowAtAGlanceWidget)*@
+
+    </div>
+</div>
+
+
+@*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="~/Scripts/Home-popup.js"></script>*@
+@section Scripts{
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script type="text/javascript">
+        var Heading = "@Model.homePopupDetails.Heading";
+        var imgSrc = "@Model.homePopupDetails.Image";
+        var siteLinkText = "@Model.homePopupDetails.SiteLinkText";
+        var findoutMoreLinkText = "@Model.homePopupDetails.FindoutMoreLinkText";
+    </script>
+    <script src="~/Scripts/Home-popup.js"></script>
+}

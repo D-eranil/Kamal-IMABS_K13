@@ -1,0 +1,9 @@
+﻿
+.contact-group h5, 
+.contact-theme h5 {
+	color: var(--darkgrey);
+}
+
+.bglightgrey {
+	background-color: var(--bggrey);
+}

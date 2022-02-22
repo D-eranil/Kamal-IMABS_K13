@@ -1,0 +1,23 @@
+﻿@model IMABS.Components.Widgets.FeatureWidget.FeatureWidgetViewModel
+
+@using CMS.Helpers
+
+
+<a href="@Model.ActionLinkUrl" class="thumbnail-panel">
+
+    <span class="step-1">
+        <img src="@Model.BackgroundImageUrl" alt="" class="img-fluid">
+        <h3>@HTMLHelper.HTMLDecode(Model.Title)</h3>
+    </span>
+
+    <span class="step-2">
+
+        <span class="holder">
+            <h3>@Model.HoverTitle</h3>
+            <h3 class="subtle">@HTMLHelper.HTMLDecode(Model.Title)</h3>
+        </span>
+
+    </span>
+
+</a>
+

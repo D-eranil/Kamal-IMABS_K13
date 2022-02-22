@@ -1,0 +1,61 @@
+﻿
+.integrity-blue3 {
+    color: var(--integrityblue3) !important;
+}
+
+.bgblue {
+    background-color: var(--bgblue);
+}
+.text-mediumblue {
+    color: var(--mediumblue) !important;
+}
+
+form .control-label, 
+form .ktc-checkbox label {
+    color: var(--mediumblue) !important;
+}
+
+/* -- WYSIWYG -- Styles for the WYISYG editor that the user can enter content */
+.wysiwyg p {
+    margin-bottom: 1em;
+}
+
+.wysiwyg li p {
+    display: inline-block;
+    text-align: left;
+}
+
+.wysiwyg h3 {
+    margin: 1.5em 0 0.5em 0;
+}
+
+.wysiwyg h4 {
+    margin: 1.5em 0 0.5em 0;
+}
+
+.wysiwyg ul li,
+.wysiwyg ol li {
+    margin: 0.5em 0 0.5em 1em;
+    color: var(--mediumgrey);
+}
+
+.wysiwyg ul,
+.wysiwyg ol {
+    margin: 0.5em 0 1em 0em;
+    padding-left: 1em;
+    color: var(--mediumgrey);
+}
+
+.wysiwyg ol {
+    counter-reset: item;
+}
+
+    .wysiwyg ol > li {
+        display: block;
+    }
+
+        .wysiwyg ol > li:before {
+            content: counters(item, ".") " ";
+            counter-increment: item;
+            font-weight: bold;
+        }

@@ -1,0 +1,107 @@
+﻿@model IMABS.Models.Helps.HelpViewModel
+
+@{
+    ViewBag.Title = Model.PageName;
+
+}
+<!--CSS Reference-->
+<link href="~/Content/Page/needhelp.css" rel="stylesheet" />
+<script src="~/Scripts/Page/needhelp.js"></script>
+
+<!-- SECTION - TITLE -->
+<div class="title">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="page-title">@Model.PageName</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- SECTION - SEARCH BAR -->
+<div id="need-help">
+    <div class="section bgblue">
+        <div class="container">
+            <div class="row g-0 search-full-width">
+                <div class="col-md-9">
+                    <input type="text" placeholder="@Model.SearchPlaceholderText" id="txtSearchPlaceholder" />
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary btn-brand btn-large" onclick="searchHelpContent();">@Model.SearchButtonText</button>
+                    <button class="btn btn-primary btn-brand btn-large" style="margin-left:10px;" onclick="resetSearchHelpContent('YES');">Clear @Model.SearchButtonText</button>
+                </div>
+            </div>
+            <!-- SECTION - QUESTION TYPES -->
+            <div class="row g-0">
+                @*@{ var j = 0; }*@
+                @foreach (var tab in Model.Tabs)
+                {
+                    var _target = tab.TabsName?.ToLower().Replace(" ", "");
+                    @*if (j / 2 == 0)
+                        {
+                            @:<div class="col-sm-6">
+                                @:<div class="row g-0">
+                                }*@
+                    //var _aClsss = j == 0 ? "csp-show question-type" : "csp-show question-type";
+                    <div class="col-sm-3">
+                        @*<a class="@_aClsss" target="@_target">*@
+                        <a class="csp-show question-type" target="@_target" id="@_target">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <img src="@tab.Image" alt="@tab.TabsName" class="img-fluid mx-auto d-block">
+                                </div>
+                                <div class="col-lg-8">
+                                    <h4>@tab.TabsName</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    @*@if (j / 2 != 0 && j != 0)
+                                {
+                                @:</div>
+                            @:</div>
+                        }
+                            j++;*@
+                    //j++;
+                }
+            </div>
+            <!--MY ACCOUNT ACCORDION-->
+            <div class="row">
+                <div class="col-md-12" id="searcharea">
+                    @{ var underscore = "_"; }
+                    @foreach (var tab in Model.Tabs)
+                    {
+                        var _target = tab.TabsName?.ToLower().Replace(" ", "");
+                        <div class="csp-targetdiv question-type-body" id="csp-@_target">
+                            <!-- Flush Accordion see docs https://getbootstrap.com/docs/5.0/components/accordion/-->
+                            <div class="accordion accordion-flush" id="accordion-@_target">
+                                <!--Help items need be categorised by the admin as either - My Account, My Delivery, My Purchase, My Quotes and placed in their respective accordion, new categories can not be created by admin-->
+                                @{ var i = 0; }
+                                @foreach (var item in tab.Items)
+                                {
+                                    <div class="accordion-item" id="@_target@underscore@i">
+                                        <!--Each accordion item heading needs a unique number suffix that is mirrored in the accordion item body, eg "-0"-->
+
+                                        <h2 class="accordion-header" id="flush-heading-@i">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-@i" aria-expanded="false" aria-controls="flush-collapse-@i">
+                                                @item.Heading
+                                            </button>
+                                        </h2>
+                                        <div id="flush-collapse-@i" class="accordion-collapse collapse" aria-labelledby="flush-heading-@i" data-bs-parent="#accordion-@_target">
+                                            <div class="accordion-body">
+
+                                                @Html.Raw(item.Content)
+                                                <a href="/support/need-help/help-item?nodeId=@item.NodeId">View more</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    i++;
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

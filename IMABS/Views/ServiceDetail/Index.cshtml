@@ -1,0 +1,173 @@
+﻿
+@model IMABS.Models.Service.ServiceViewModel 
+@{
+	ViewBag.Title = "Services";
+}
+
+@{
+	string[] allowTextWidgets = { PagebuilderIdentifiers.TEXTWIDGET_IDENTIFIER };
+}
+
+<link href="/Content/Page/ServiceDetail.css" rel="stylesheet" />
+
+<div class="section hero service-banner">
+	<div class="service-banner-img">
+		<div class="container">
+			<div class="row col-md-12">
+				<img src="@Model.MobileBanner" class="w-100 carousel-img-mobile" alt="...">
+				<img src="@Model.TabletBanner" class="w-100 carousel-img-tablet" alt="...">
+				<img src="@Model.DesktopBanner" class="w-100 carousel-img-desktop" alt="...">
+			</div>
+		</div>
+	</div>
+	<div class="service-banner-title">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<h2 class="page-title">@Model.Name</h2>
+					<h3 class="tagline">@Model.Description</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="section bgblue">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="service-overview panel flex-container">
+					<h4 style="display:none;">
+						<editable-area area-identifier="ServicePanelText" area-options-allowed-widgets="@allowTextWidgets" />
+						@*@Html.Kentico().EditableArea("ServicePanelText", allowedWidgets: allowTextWidgets)*@
+					</h4>
+					<h4>
+						@Model.ServicePanelText
+					</h4>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="row">
+					@foreach (var panel in Model.topFourServicePanels)
+					{
+						<div class="col-lg-6">
+							<div class="description-panel">
+								<div class="default panel flex-container">
+									<h4>@panel.Title</h4>
+								</div>
+								<div class="hover panel flex-container">
+									<div>
+										<p>@panel.SubTitle</p>
+										<p><a href="@panel.LinkUrl">@panel.LinkText <i class="fa fa-external-link" aria-hidden="true"></i></a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+
+			</div>
+		</div>
+		<div class="row">
+			@foreach (var panel in Model.servicePanels)
+			{
+				<div class="col-lg-3">
+					<div class="description-panel">
+						<div class="default panel flex-container">
+							<h4>@panel.Title</h4>
+						</div>
+						<div class="hover panel flex-container">
+							<div>
+								<p>@panel.SubTitle</p>
+								<p><a href="@panel.LinkUrl">@panel.LinkText <i class="fa fa-external-link" aria-hidden="true"></i></a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</div>
+
+
+
+<!-- SECTION - BRANDS WE WORK WITH -->
+@if (Model.brands != null && Model.brands.Count > 0)
+{
+	<div class="section" id="brands">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h6>@Model.ServiceTemplateTitles.BrandTitle</h6>
+				</div>
+			</div>
+			<div class="row">
+				<div class="container">
+					<section class="logo-carousel slider" data-arrows="true">
+						@foreach (var brand in Model.brands)
+						{
+							<div class="slide"><img src="@brand.ImageUrl"></div>
+						}
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+
+<div class="section flex-container" id="cta-contact">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+				<h6>@Model.ServiceTemplateTitles.ContactUsTitle</h6>
+				<h3><a href="@Model.Link1Url">@Model.Link1Text</a> or <a href="@Model.Link2Url">@Model.Link2Text</a></h3>
+			</div>
+			<div class="col-md-2">
+				<p>
+					<a href="@Model.Link2Url">
+						<img width="75" src="@Model.ArrowImage">
+					</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="section" id="secondary-nav">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h3>@Model.ServiceTemplateTitles.ServiceListTitle</h3>
+			</div>
+		</div>
+
+		@{ var i = 0;}
+		<div class="row">
+			@foreach (var serice in Model.services)
+			{
+				int lst = 0, frst = 0;
+				Math.DivRem(i, 4, out frst);
+				Math.DivRem(i + 1, 4, out lst);
+
+				var isFirstInRow = (frst == 0);
+				var isLastInRow = (lst == 0 && i > 0) || i + 1 == Model.services.Count;
+
+				string divStart = "<div class='col-md-4'> <ul class='secondary-nav-list'>";
+				string divend = "</div> </ul>";
+
+				if (isFirstInRow)
+				{
+					@Html.Raw(divStart);
+				}
+				<li><a href="@serice.RedirectionUrl">@serice.Name</a></li>
+				if (isLastInRow)
+				{
+					@Html.Raw(divend);
+				}
+				i++;
+			}
+		</div>
+	</div>
+</div>

@@ -1,0 +1,90 @@
+﻿
+
+.service-banner h2:after {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 40px;
+    left: 50%;
+    margin-top: 15px;
+    margin-left: -20px;
+    background-color: var(--integrityblue3);
+}
+
+.service-banner-img {
+    bottom: 0;
+}
+
+.service-banner-img, .service-banner-title {
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.service-banner-title {
+    bottom: 60px;
+}
+
+.integrity-blue3 {
+    color: var(--integrityblue3) !important;
+}
+
+
+.bgingramblue {
+    background-color: var(--ingramblue);
+}
+
+blockquote {
+    margin: 0 0 1rem;
+}
+
+.wysiwyg ul, .wysiwyg ol {
+    margin: 0.5em 0 1em 0em;
+    padding-left: 1em;
+    color: var(--mediumgrey);
+}
+
+
+
+.our-contributions .panel {
+    min-height: 280px;
+}
+
+.our-contributions h3 p,
+.our-contributions h6 p {
+    margin-bottom: 0px;
+}
+
+
+.our-contributions img {
+    max-width: 60px;
+}
+
+@media only screen and (min-width: 768px) {
+    .service-banner h2:after {
+        left: auto;
+        margin-left: 0;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .service-banner h2:after {
+        left: auto;
+        margin-left: 0;
+    }
+    blockquote.offset {
+        margin-top: -120px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .section.hero.service-banner {
+        min-height: 460px;
+    }
+
+    .service-banner h2:after {
+        left: auto;
+        margin-left: 0;
+    }
+}

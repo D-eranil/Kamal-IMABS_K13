@@ -1,0 +1,120 @@
+﻿@using Kentico.PageBuilder.Web.Mvc
+@using Kentico.Web.Mvc
+
+@model IMABS.Models.Career.CareersViewModel
+
+@{
+	ViewBag.Title = "Career";
+}
+<link href="~/Content/Page/career.css" rel="stylesheet" />
+
+@{
+	string[] allowHeaderBannerWidget = { PagebuilderIdentifiers.HEADERBANNERWIDGET_IDENTIFIER };
+	string[] allowTextWidgets = { SystemComponentIdentifiers.RICH_TEXT_WIDGET_IDENTIFIER };
+	string[] allowCTAButton = { PagebuilderIdentifiers.CTABUTTONWIDGET_IDENTIFIER };
+}
+
+<!-- SECTION - TITLE -->
+<editable-area area-identifier="headerbanner" area-options-allowed-widgets="@allowHeaderBannerWidget" />
+
+@if (Model.openings != null && Model.openings.Count > 0)
+{
+	<div class="section bglightgrey">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h3 class="mb-0">@ResHelper.GetString("IMABS.AvailableRoles")</h3><!-- Available Roles Heading - Editable Text Field-->
+					<!--This table should dynamically pull the 10 latest avaiable roles from Job Vite, including the location, date posted and a link to apply-->
+					<div class="table-responsive">
+						<table class="table mt-3">
+							<thead>
+								<tr>
+									<th scope="col" width="50%" class="bg-transparent"><h6 class="mb-0">@ResHelper.GetString("IMABS.Position")</h6></th><!--Not editable-->
+									<th scope="col" width="20%" class="bg-transparent"><h6 class="mb-0">@ResHelper.GetString("IMABS.Location")</h6></th><!--Not editable-->
+									<th scope="col" width="15%" class="bg-transparent"><h6 class="mb-0">@ResHelper.GetString("IMABS.DatePosted")</h6></th><!--Not editable-->
+									<th scope="col" width="15%" class="bg-transparent"><h6 class="mb-0">@ResHelper.GetString("IMABS.Apply")</h6></th><!--Not editable-->
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model.openings)
+								{
+									var applyUrl = string.IsNullOrEmpty(item.ApplyURL) ? "#" : item.ApplyURL;
+									<tr>
+										<td>@item.OpeningPosition</td>
+										<td>@item.OpeningLocation</td>
+										<td>@item.PostedDate.ToString("dd/MM/yy")</td>
+										<td><a href="@applyUrl" class="btn btn-secondary btn-brand btn-small" target="_blank">@ResHelper.GetString("IMABS.ApplyNow")</a></td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+					<p>&nbsp;</p>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+<div class="section bgingramblue flex-container">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="text-white text-center">
+					<editable-area area-identifier="viewAllPositionsText" area-options-allowed-widgets="@allowTextWidgets" /><!--Impressive Quote - Editable Text Field-->
+				</h3>
+				<p class="text-center">
+					<editable-area area-identifier="ctabutton" area-options-allowed-widgets="@allowCTAButton" /><!--Impressive Quote - Editable Text Field-->
+				</p>
+				<!--<p class="text-center"><a href="INSERTURL > JOBVITE" class="btn btn-secondary btn-brand btn-large reverse" target="_blank">View all positions</a></p>--><!--This should link to the jobvite page showing all available positions-->
+			</div>
+		</div>
+	</div>
+</div>
+<div class="section bg-dark">
+	<div class="container">
+		<div class="row">
+			<h6>@Model.FindUsTitle</h6><!--Not Editable-->
+			<div class="col-md-12">
+				<editable-area area-identifier="findUsText" area-options-allowed-widgets="@allowTextWidgets" />
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="section bg-black flex-container pt-0 pb-0">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<h3 class="mb-3 text-white text-center">@Html.Raw(Model.FollowUsTitle)</h3><!--Not Editable-->
+				<!--Not Editable-->
+				@if (Model.socialMedia.Count > 0)
+				{
+					<p class="mb-0 text-center">
+						@foreach (var mediaItem in Model.socialMedia)
+						{
+							var mediaUrl = string.IsNullOrEmpty(mediaItem.SocialMediaURL) ? "#" : mediaItem.SocialMediaURL;
+							<a href="@mediaUrl " target="_blank">
+								@if (!string.IsNullOrEmpty(mediaItem.SocialMediaClass))
+								{
+									<i class="@mediaItem.SocialMediaClass"></i>
+								}
+								else
+								{
+									<img src="@mediaItem.SocialMediaLogo" style="max-width:50px;">
+								}
+								&nbsp;&nbsp;
+							</a>
+							<!--Not Editable-->
+						}
+
+					</p><!--Not Editable-->
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+

@@ -1,0 +1,38 @@
+﻿@model IMABS.Models.Leaderships.LeadershipViewModel
+
+@{
+    ViewBag.Title = Model.LeadershipPageName;
+}
+
+@{
+    string[] allowImageCardWidgets = { PagebuilderIdentifiers.IMAGECARDWIDGET_IDENTIFIER };
+    string[] allowTextWidgets = { SystemComponentIdentifiers.RICH_TEXT_WIDGET_IDENTIFIER };
+
+    var options = new EditableAreaOptions
+    {
+        AllowedWidgets = new[] { PagebuilderIdentifiers.IMAGECARDWIDGET_IDENTIFIER },
+        AllowedSections = new[] { PagebuilderIdentifiers.FOURCOLUMNSECTION_IDENTIFIER }
+    };
+}
+
+<!-- SECTION - TITLE -->
+<div class="title">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="page-title">@Model.PageHeading</h2>
+                <h2 class="tagline">@Html.Raw(Model.PageSubHeading)</h2><!--Tagline - Editable with a standard text field-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section bgblue compact">
+    <div class="container">
+        <editable-area area-identifier="profileCard" area-options-allowed-widgets="@allowImageCardWidgets" area-options-default-section-identifier="@PagebuilderIdentifiers.FOURCOLUMNSECTION_IDENTIFIER"></editable-area>
+    </div>
+</div>
+
+
+

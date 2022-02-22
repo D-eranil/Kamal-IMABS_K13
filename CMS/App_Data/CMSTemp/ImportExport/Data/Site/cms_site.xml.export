@@ -1,0 +1,14 @@
+﻿<cms_site version="13.0">
+  <NewDataSet>
+    <cms_site>
+      <SiteID>1</SiteID>
+      <SiteName>IMABS</SiteName>
+      <SiteDisplayName>IMABS</SiteDisplayName>
+      <SiteStatus>RUNNING</SiteStatus>
+      <SiteDomainName>localhost</SiteDomainName>
+      <SiteGUID>1b9fa693-ffc3-4a1c-aae2-6aff7d077913</SiteGUID>
+      <SiteLastModified>2022-02-09T14:18:23.2826321+05:30</SiteLastModified>
+      <SitePresentationURL>http://localhost:25291/</SitePresentationURL>
+    </cms_site>
+  </NewDataSet>
+</cms_site>

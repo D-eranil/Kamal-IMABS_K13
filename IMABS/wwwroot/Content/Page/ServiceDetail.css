@@ -1,0 +1,238 @@
+﻿
+.service-overview {
+    background-color: var(--ingramblue);
+    min-height: 266px;
+    margin-bottom: 20px;
+}
+
+.description-panel .default,
+.description-panel .hover {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.description-panel .default {
+    height: 220px;
+    width: 100%;
+}
+
+    .description-panel .default h4 {
+        margin: 0;
+    }
+
+.description-panel .hover {
+    height: 220px;
+    width: 100%;
+    visibility: hidden;
+    background-color: var(--darkgrey);
+}
+
+    .description-panel .hover p {
+        color: var(--greyblue1);
+    }
+
+        .description-panel .hover p:last-of-type {
+            margin-bottom: 0px;
+        }
+
+    .description-panel .hover a {
+        color: var(--white);
+        font-weight: 700;
+    }
+
+        .description-panel .hover a:hover {
+            color: var(--integrityblue3);
+        }
+
+.description-panel:hover > .hover {
+    visibility: visible;
+    cursor: default;
+}
+
+.description-panel {
+    position: relative;
+    height: 220px;
+    margin-bottom: 20px;
+}
+
+.service-overview h4 {
+    color: var(--white);
+    margin: 0;
+}
+
+.section.hero.service-banner {
+    background-color: #000;
+    padding: 0;
+    min-height: 350px;
+}
+
+.service-banner-img,
+.service-banner-title {
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.service-banner-img {
+    bottom: 0;
+}
+
+.service-banner-title {
+    bottom: 60px;
+}
+
+.service-banner h2:after {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 40px;
+    left: 50%;
+    margin-top: 15px;
+    margin-left: -20px;
+    background-color: var(--integrityblue3);
+}
+
+.service-banner h3 {
+    color: var(--greyblue2);
+    margin-bottom: 0;
+}
+
+.description-panel {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    background-color: var(--white);
+    margin-bottom: 30px;
+}
+
+    .description-panel .default, .description-panel .hover {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .description-panel .hover {
+        height: 220px;
+        width: 100%;
+        visibility: hidden;
+        background-color: var(--darkgrey);
+    }
+
+#cta-contact {
+    background-color: var(--black);
+    padding-bottom: 0;
+}
+
+    #cta-contact h3 {
+        color: #b2b2b2;
+    }
+
+        #cta-contact h3 a {
+            color: var(--white);
+        }
+
+            #cta-contact h3 a:hover {
+                color: var(--integrityblue3);
+            }
+
+#secondary-nav {
+    background-color: var(--darkgrey);
+}
+
+    #secondary-nav h3 {
+        color: var(--white);
+    }
+
+ul.secondary-nav-list li {
+    list-style: none;
+}
+
+    ul.secondary-nav-list li a {
+        border-top: 1px solid var(--mediumgrey);
+        display: inline-block;
+        width: 100%;
+        padding: 15px 0;
+        color: var(--greyblue2);
+        text-align: center;
+    }
+
+        ul.secondary-nav-list li a:hover {
+            border-top: 1px solid var(--white);
+            color: var(--white);
+        }
+
+.carousel-img-mobile {
+    display: none;
+}
+
+.carousel-img-tablet {
+    display: none;
+}
+
+.carousel-img-desktop {
+    display: block;
+}
+
+.service-overview {
+    min-height: 466px;
+}
+
+@media only screen and (min-width: 768px) {
+    .carousel-img-mobile {
+        display: none;
+    }
+
+    .carousel-img-tablet {
+        display: block;
+    }
+
+    .carousel-img-desktop {
+        display: none;
+    }
+
+    .section.hero.service-banner {
+        min-height: 370px;
+    }
+
+    ul.secondary-nav-list li a {
+        text-align: left;
+    }
+
+    .service-banner h2:after {
+        left: auto;
+        margin-left: 0;
+    }
+}
+
+
+@media only screen and (min-width: 992px) {
+    .carousel-img-mobile {
+        display: none;
+    }
+
+    .carousel-img-tablet {
+        display: none;
+    }
+
+    .carousel-img-desktop {
+        display: block;
+    }
+
+    .service-overview {
+        min-height: 466px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .service-overview {
+        min-height: 466px;
+    }
+
+    .section.hero.service-banner {
+        min-height: 460px;
+    }
+}
+
+

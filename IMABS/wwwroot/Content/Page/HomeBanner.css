@@ -1,0 +1,254 @@
+﻿@media (min-width: 800px) and (device-height: 1280px) and (orientation: portrait) {
+
+    #myModal > .modal-dialog {
+        height: auto !important;
+        width: auto;
+        max-width: 95vw !important;
+        display: inline-block !important;
+    }
+}
+
+@media (min-width: 1024px) and (device-height: 1366px) and (orientation: portrait) {
+
+    #myModal > .modal-dialog {
+        height: auto !important;
+        max-width: 95vw !important;
+        display: inline-block !important;
+    }
+}
+
+@media (min-width: 768px) and (device-height: 1024px) and (orientation: portrait) {
+
+    #myModal > .modal-dialog {
+        height: auto !important;
+        width: auto;
+        max-width: 95vw !important;
+        display: inline-block !important;
+    }
+}
+
+
+@media (min-width: 320px) and (max-width: 1024px) and (orientation: portrait) {
+    #myModal.modal {
+        display: flex !important;
+    }
+
+    #myModal > .modal-dialog > .modal-content {
+        max-width: 95vw !important;
+    }
+
+    #RedesignWelcomePopup h1 {
+        font-size: 5vmin !important
+    }
+
+    #myModal.modal {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+#myModal.modal {
+    z-index: 2147483646 !important;
+    overflow: auto;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: wrap;
+    padding-left: 0px !important;
+    padding-right: 8px !important;
+}
+
+
+#myModal > .modal-dialog {
+    text-align: center !important;
+}
+
+    #myModal > .modal-dialog > .modal-content {
+        /* 15% from the top and centered */
+        border: 0px solid #353535cc;
+        width: auto;
+        max-width: 60vw;
+        height: auto;
+        border-radius: 0px;
+    }
+
+        #myModal > .modal-dialog > .modal-content .modal-header {
+            padding-top: 0px !important;
+            /* border-top-left-radius: 0px !important; */
+            /* border-top-right-radius: 0px !important; */
+            border-bottom: 0px !important;
+            min-height: 0px !important;
+            position: absolute;
+            right: -17px;
+            top: -20px;
+            color: #fff;
+            height: 35px;
+            width: 37px;
+            border: 2px solid #fff;
+            border-radius: 100%;
+            display: block;
+            overflow: hidden;
+            padding: 0;
+            background-color: #000;
+        }
+
+
+
+
+.js-wp-image {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.rightborder {
+    border-right: 1px solid #ccc !important
+}
+
+.leftborder {
+    border-left: 1px solid #ccc !important
+}
+
+.wcpopupswitch {
+    position: relative;
+    display: inline-block;
+    width: 54px;
+    height: 28px;
+}
+
+    .wcpopupswitch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+.wcpopupslider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: gray;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+    .wcpopupslider:before {
+        position: absolute;
+        content: "";
+        height: 24px;
+        width: 24px;
+        left: 3px;
+        bottom: 2px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+input:checked + .wcpopupslider {
+    background-color: orangered;
+}
+
+input:focus + .wcpopupslider {
+    box-shadow: 0 0 1px orangered;
+}
+
+input:checked + .wcpopupslider:before {
+    -webkit-transform: translateX(24px);
+    -ms-transform: translateX(24px);
+    transform: translateX(24px);
+}
+
+.wcpopupslider.wcpopupround {
+    border-radius: 30px;
+}
+
+    .wcpopupslider.wcpopupround:before {
+        border-radius: 50%;
+    }
+
+.vertical-center {
+    transform: translateY(-15%);
+}
+
+
+/* The Close Button */
+
+.wcpopupclose {
+    color: #fff;
+    /* float: right; */
+    font-size: 22px;
+    font-weight: bold;
+    position: relative;
+    z-index: 2147483647;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+    .wcpopupclose:hover,
+    .wcpopupclose:focus {
+        cursor: pointer;
+    }
+
+.welcomelink {
+    color: #2375bb;
+    text-decoration: underline;
+}
+
+    .welcomelink:hover, .welcomelink:focus {
+        cursor: pointer;
+    }
+
+    .welcomelink img {
+        max-width: 100%;
+        width: 100%;
+    }
+
+.welcomelink {
+    margin-bottom: 30px;
+}
+
+#myModal .modal-body {
+    padding: 0;
+}
+
+.pop-up-action span.continue {
+    padding: 0 20px 28px !important;
+    text-align: left;
+    color: #2375bb;
+    float: left;
+    font-size: 18px;
+}
+
+.pop-up-action span.welcomelink {
+    float: right;
+    background-color: #2375bb;
+    color: #fff;
+    text-transform: capitalize;
+    text-decoration: none;
+    padding: 7px 25px;
+    vertical-align: middle;
+    display: inline-block;
+    margin-top: -8px;
+    border-radius: 3px;
+    margin-bottom: 0;
+    font-size: 16px;
+}
+
+#myModal .modal-backdrop.show {
+    opacity: 0.7;
+}
+
+#myModal .modal-dialog {
+    max-width: 640px;
+}
+
+#RedesignWelcomePopup h1 {
+    text-align: center;
+    font-size: 22px;
+    text-transform: capitalize;
+    color: #000;
+    padding-top: 22px !important;
+    margin-bottom: 20px;
+}

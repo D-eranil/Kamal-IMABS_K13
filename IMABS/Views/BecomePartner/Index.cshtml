@@ -1,0 +1,81 @@
+﻿@model IMABS.Models.BecomeAPartner.BecomePartnerViewModel
+
+@{
+	ViewBag.Title = "Become a Partner";
+}
+
+<link href="~/Content/Page/becomepartner.css" rel="stylesheet" />
+
+@{
+	string[] allowHeaderBannerWidget = { PagebuilderIdentifiers.HEADERBANNERWIDGET_IDENTIFIER };
+	string[] allowCTAButton = { PagebuilderIdentifiers.CTABUTTONWIDGET_IDENTIFIER };
+}
+
+<!-- SECTION - TITLE -->
+<editable-area area-identifier="headerbanner" area-options-allowed-widgets="@allowHeaderBannerWidget" />
+
+<!-- SECTION - APPLYING FOR AN INGRAM MICRO ACCOUNT -->
+<div class="section bg-dark pb-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 apply-intro">
+				<h3>@Model.ApplyTitle</h3><!-- Apply Heading - Editable Text Field-->
+				<div class="wysiwyg mb-5 reverse">
+					<!--Apply Intro Blurb - Editable WYSIWYG Field-->
+					@Html.Raw(Model.ApplyDescription)
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 apply-rules">
+				@Html.Raw(Model.ApplyRules)
+			</div>
+			<!--<div class="col-md-6">
+				<ul class="application-list mb-0 pt-0">-->
+			<!--Users should be able to add or remove list items, each item is a standard text field. No min or max. -->
+			<!--<li>If trading as Trustee company, you must put the Corporate Trustee Name and ABN# / ACN# (must provide copy of “Record of Registration for the Business Name)”</li>
+					<li>If you have been with trading Ingram Micro in other countries, please include it as one of your trade reference</li>
+					<li>If the business is trading in residential  area, you need to provide 2 quarterly utility bills under applicant name</li>
+					<li>Fore prepayment accounts, If ID’s cannot be provided, we will create a prepayment account without access to credit card payments</li>
+				</ul>
+			</div>-->
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<p class="text-right">
+					<editable-area area-identifier="ctabutton" area-options-allowed-widgets="@allowCTAButton" />
+				</p><!--Editable Text Field: User must be able to insert their own URL and anchor text -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 notes-rules">
+				<h4 class="mb-3 text-white">@Model.ApplyNotesTitle</h4><!-- Notes Heading - Editable Text Field-->
+				@Html.Raw(Model.ApplyNotesRules)
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script>
+	$(document).ready(function () {
+		debugger;
+		// divide notes apply ul in two equal ul and add class
+		$(".apply-rules > ul").each(function () {
+			var $ul = $(this).addClass("application-list mb-0 pt-0"), // Let original be first column
+				$lis = $ul.children(), // Find all children `li` elements
+				mid = Math.floor($lis.length / 2), // Calculate where to split
+				//$newCol = $('<ul />', { "class": "application-list mb-0 pt-0" }).insertAfter($ul); // Create new column and add after original. "class" needs to be in quotes because it's a reserved keyword
+				$newCol = $('<ul />', { "class": "application-list mb-0 pt-0" }).insertAfter(($ul).parent()).wrapAll('<div class="col-md-6"></div>'); // Create new column and add after original. "class" needs to be in quotes because it's a reserved keyword
+
+
+			$lis.each(function (i) {
+				i > mid && $(this).appendTo($newCol); // Move `li` elements with index greater than middle
+			});
+		});
+
+		// add class to notes rules ul
+		$('.notes-rules ul:first').addClass("fine-print");
+	});
+
+</script>

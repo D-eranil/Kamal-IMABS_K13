@@ -1,0 +1,100 @@
+﻿
+@model IMABS.Models.Certifications.CertificationViewModel
+@{
+    ViewBag.Title = "Certification";
+}
+
+@{
+    string[] allowVideoCardWidgets = { PagebuilderIdentifiers.VIDEOCARDWIDGET_IDENTIFIER };
+    string[] allowFormWidgets = { SystemComponentIdentifiers.FORM_WIDGET_IDENTIFIER };
+    string[] allowTextWidgets = { SystemComponentIdentifiers.RICH_TEXT_WIDGET_IDENTIFIER};
+}
+<link href="/Content/Page/ServiceDetail.css" rel="stylesheet" />
+
+<link href="/Content/Page/Certification.css" rel="stylesheet" />
+
+<!-- SECTION - HERO TITLE -->
+<div class="section hero service-banner bg-white">
+    <div class="service-banner-img">
+        <div class="container">
+            <div class="row">
+                <img src="@Model.MobileBanner" class="w-100 carousel-img-mobile" alt="...">
+                <img src="@Model.TabletBanner" class="w-100 carousel-img-tablet" alt="...">
+                <img src="@Model.DesktopBanner" class="w-100 carousel-img-desktop" alt="...">
+            </div>
+        </div>
+    </div>
+    <div class="service-banner-title">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h2 class="page-title text-black">@Model.Name</h2>
+                    <h3 class="tagline integrity-blue3 mb-4">@Model.Description</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- SECTION - CERTIFICATION AND TRAINING -->
+<div class="section bgblue">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel bg-white mb-4">
+                    <h3>@Model.CertificationTitle</h3><!--Not editable-->
+                    <div class="wysiwyg">
+                        <!--Editable WYSIWYG Field-->
+                        @Html.Raw(Model.CertificationContent)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel bg-white mb-4">
+                    <h3>@Model.TrainingTitle</h3><!--Not editable-->
+                    <div class="wysiwyg">
+                        <!--Editable WYSIWYG Field-->
+                        @Html.Raw(Model.TrainingContent)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SECTION - FORM -->
+<div class="section bg-dark pb-5">
+    <div class="container">
+        <div class="row flex-container">
+            <div class="col-md-5">
+                <h3 class="text-white mb-1">
+                    <editable-area area-identifier="FormHeadingText" area-options-allowed-widgets="@allowTextWidgets" />
+                </h3>
+                <h4 class="text-mediumblue">
+                    <editable-area area-identifier="FormSubHeadingText" area-options-allowed-widgets="@allowTextWidgets" />
+                </h4>
+            </div>
+            <div class="col-md-6 offset-md-1">
+                <editable-area area-identifier="FormArea"  area-options-allowed-widgets="@allowFormWidgets"/>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- SECTION - TRAINING AND WEBINAR VIDEOS -->
+
+<div class="section bg-black">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="text-white mb-1">@Model.VideoPanelTitle</h3>
+                <h4 class="text-mediumblue">@Html.Raw(Model.VideoPanelSubTitle)</h4>
+            </div>
+        </div>
+        <div class="row">
+            <editable-area area-identifier="VideoCardAre" area-options-allowed-widgets="@allowVideoCardWidgets" />
+        </div>
+    </div>
+</div>
+

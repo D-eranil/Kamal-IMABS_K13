@@ -1,0 +1,31 @@
+﻿@model IMABS.Models.Privacies.PrivacyViewModel
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<!-- SECTION - TITLE -->
+<div class="title">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <h2 class="page-title">@Model.Heading</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SECTION - BODY CONTENT -->
+<div class="section bgblue">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="wysiwyg">
+                    @if (Model != null)
+                    {
+                        @Html.Raw(Model.Content)
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

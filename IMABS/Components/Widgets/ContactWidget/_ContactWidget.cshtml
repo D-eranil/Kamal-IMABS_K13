@@ -1,0 +1,23 @@
+﻿@using IMABS.Components.InlineEditors.TextEditor
+@using IMABS.Components.Widgets.ContactWidget
+@using Kentico.PageBuilder.Web.Mvc
+
+@model IMABS.Components.Widgets.ContactWidget.ContactWidgetViewModel
+
+@if (Context.Kentico().PageBuilder().EditMode)
+{
+	<partial name="~/Components/InlineEditors/TextEditor/_TextEditor.cshtml"
+			 model="new TextEditorViewModel
+{
+	PropertyName = nameof(ContactWidgetProperties.Text),
+	Text = Model.Text,
+}" />
+}
+else
+{
+<div class="contact-theme panel @(Model.Background=="none"?"":Model.Background)">
+	@Html.Raw(Model.Text)
+</div>
+}
+
+

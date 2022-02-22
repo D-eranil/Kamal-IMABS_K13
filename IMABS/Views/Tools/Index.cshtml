@@ -1,0 +1,33 @@
+﻿@model CMS.DocumentEngine.Types.IMABS.Tools
+
+@{
+	ViewBag.Title = "Tools";
+}
+
+
+@{
+	string[] allowCTATileWidget = { PagebuilderIdentifiers.CTATILEWIDGET_IDENTIFIER };
+	string[] allowSection = { PagebuilderIdentifiers.THREECOLUMNSECTION_IDENTIFIER };
+
+}
+
+<!-- SECTION - TITLE -->
+<div class="title">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+				<h2 class="page-title">@Model.ToolsTitle</h2>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- SECTION - TOOL PANELS -->
+<div class="section bgblue">
+	<div class="container">
+		
+			<editable-area area-identifier="toolsTitle" area-options-default-section-identifier="@PagebuilderIdentifiers.THREECOLUMNSECTION_IDENTIFIER" area-options-allowed-sections="@allowSection" area-options-allowed-widgets="@allowCTATileWidget" />
+		
+	</div>
+</div>
+

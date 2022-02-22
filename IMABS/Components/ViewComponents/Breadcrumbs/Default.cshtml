@@ -1,0 +1,32 @@
+﻿@using IMABS.Models
+
+@model IEnumerable<BreadcrumbViewModel>
+
+<link href="~/Content/Page/breadcrumbs.css" rel="stylesheet" />
+
+@if (Model != null && Model.Count() > 0)
+{
+
+    <!-- SECTION - BREADCRUMBS -->
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="row-list">
+                        @foreach (var Breadcrumb in Model)
+                        {
+                            if (!Breadcrumb.IsCurrentPage)
+                            {
+                                <li><a href="@Breadcrumb.LinkUrl">@Breadcrumb.LinkText</a></li>
+                            }
+                            else
+                            {
+                                <li>@Breadcrumb.LinkText</li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}

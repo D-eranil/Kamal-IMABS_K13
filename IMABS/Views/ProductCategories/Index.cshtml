@@ -1,0 +1,63 @@
+﻿@using Kentico.PageBuilder.Web.Mvc
+@using Kentico.Web.Mvc
+
+
+@model IMABS.Models.ProductCategories.ProductCategoryViewModel
+
+@{
+    ViewBag.Title = "Product Categories";
+}
+
+
+@{
+    string[] allowTextWidgets = { PagebuilderIdentifiers.TEXTWIDGET_IDENTIFIER };
+    //string[] allowCategoryWidgets = { PagebuilderIdentifiers.CATEGORYWIDGET_IDENTIFIER };
+}
+
+<link href="~/Content/Page/ProductCategories.css" rel="stylesheet" />
+
+<!-- SECTION - TITLE -->
+<div class="title">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <h2 class="page-title">
+                    <editable-area area-identifier="pcTitel" area-options-allowed-widgets="@allowTextWidgets" />
+                    @*@Html.Kentico().EditableArea("pcTitel", allowedWidgets: allowTextWidgets)*@
+                </h2>
+                <h2 class="tagline">
+                    <editable-area area-identifier="pcTagline" area-options-allowed-widgets="@allowTextWidgets" />
+                    @*@Html.Kentico().EditableArea("pcTagline", allowedWidgets: allowTextWidgets)*@
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- SECTION - PRODUCT CATEGORIES INDEX -->
+<div class="section bgblue">
+    <div class="container">
+
+        <div class="row">
+            @*@Html.Kentico().EditableArea("pcCategories", defaultSectionIdentifier: PagebuilderIdentifiers.FOURCOLUMNSECTION_IDENTIFIER, allowedWidgets: allowCategoryWidgets)*@
+            @foreach (var item in Model.productCategoryDetails)
+            {
+                <div class="col-md-3">
+                    <a href="@item.RedirectionUrl" class="panel icon-panel">
+                        <div class="row flex-container">
+                            <div class="col-lg-8">
+                                <h4>
+                                    @item.Title
+                                </h4>
+                            </div>
+                            <div class="col-lg-4">
+                                <img src="@item.ImageUrl" alt="@item.ImageAltText">
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+

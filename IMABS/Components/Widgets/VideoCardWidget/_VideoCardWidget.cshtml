@@ -1,0 +1,18 @@
+﻿@model IMABS.Components.Widgets.VideoCardWidget.VideoCardWidgetViewModel
+
+@using CMS.Helpers
+
+
+
+<!--Videos: Please allow admin to add or remove video tiles, with a minimum of 3, maximum of 18 limit-->
+<a class="panel d-block bg-dark mb-3 video-panel" href="@Model.RedirectionUrl" target="_blank">
+    <!--Editable Video URL Field-->
+    <div class="row">
+        <div class="col-lg-3">
+            <img src="@Model.VideoIconImage" class="img-fluid d-block mx-auto mb-3" alt="@Model.VideoIconAltText">
+        </div>
+        <div class="col-lg-9">
+            <h4 class="text-mediumblue mb-0 mt-0">@Model.VideoTitle</h4><!--Editable Video Title-->
+        </div>
+    </div>
+</a>

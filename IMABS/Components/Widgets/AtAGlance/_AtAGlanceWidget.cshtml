@@ -1,0 +1,17 @@
+﻿@model IMABS.Components.Widgets.AtAGlance.AtAGlanceViewModel
+
+<ul class="row-list panel">
+    <li>
+        <span class="stats">
+            @Model.Stats
+        </span>
+        <p>
+            @Model.Title
+        </p>
+    </li>
+    <li>
+        @*<i class="fa-regular fa-box fa-3x icon"></i>*@
+        <i class="@Model.IconClass"></i>
+    </li>
+</ul>
+

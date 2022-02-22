@@ -1,0 +1,50 @@
+﻿@model IMABS.Components.Widgets.ImageCardWidget.ImageCardWidgetViewModel
+
+@{ var popupId = Model.Name?.Replace(" ", "-"); }
+
+<img src="@Model.ProfileImage" class="mx-auto d-block img-fluid"><!--Profile Picture must be minimum 540x540px-->
+<div class="panel bg-white mb-4 profile-card">
+    <h4 class="mb-2 mt-0">@Model.Name</h4><!--Profile Name: Standard Text Field-->
+    <h6>@Model.Title</h6><!--Profile Title: Standard Text field-->
+    <p class="mb-0">
+        <a class="btn btn-brand btn-secondary btn-small" href="@Model.RedirectionUrl" data-bs-toggle="modal" data-bs-target="#@popupId">
+            @Model.RedirectionButtonText
+        </a>
+    </p><!--View bio button only appears if the bio field is filled out-->
+</div>
+
+
+
+<!--POPUP: BIO-->
+<div class="modal fade popup" id="@popupId" tabindex="-1">
+    <!--This ID is linked to the 'data-bs-target' attribute on the View Bio anchor link-->
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Executive Leadership</h4><!--Not editable-->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="@Model.ProfileImage" alt="" class="img-fluid mx-auto d-block mb-3">
+                        </div>
+                        <div class="col-md-8">
+                            <h3 class="mb-2">@Model.Name</h3><!--Profile Name Field-->
+                            <h6>@Model.Title</h6><!--Profile Title Field-->
+                            <div class="wysiwyg">
+                                <!--Bio field, should be a WYSIWYG field, this field is optional, if not filled out, then the View bio button does not appear and the entire popup won't appear-->
+                                @Html.Raw(Model.BioText)
+                            </div>
+                            <p class="mb-0">
+                                @Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.SocialMediaText))
+                                @*<a href="INSERTURL LINKEDIN URL"><i class="fab fa-linkedin fa-2x"></i></a>*@
+                            </p><!--LinkedIn Profile URL, optional, if not filled out this does not appear.-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

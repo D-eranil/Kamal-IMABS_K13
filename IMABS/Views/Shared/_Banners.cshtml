@@ -1,0 +1,20 @@
+﻿
+@using Kentico.PageBuilder.Web.Mvc
+
+@if (ViewBag != null && ViewBag.EnableCallToTactionBanner != null && ViewBag.EnableCallToTactionBanner)
+{
+    <editable-area area-identifier="areaCTA1" area-options-default-section-identifier="IMABS.CallToActionBanner"></editable-area>
+    @*@Html.Kentico().EditableArea("areaCTA1", defaultSectionIdentifier: "IMABS.CallToActionBanner")*@
+}
+
+@if (ViewBag != null && ViewBag.EnableCallToTactionBanner != null && ViewBag.EnablePromotionsBanner)
+{
+    <editable-area area-identifier="areaPromo1" area-options-default-section-identifier="IMABS.PromotionsBanner"></editable-area>
+    @*@Html.Kentico().EditableArea("areaPromo1", defaultSectionIdentifier: "IMABS.PromotionsBanner")*@
+}
+
+@if (ViewBag != null && ViewBag.EnableBreadcrumb != null && ViewBag.EnableBreadcrumb)
+{
+    //Html.RenderAction("Index", "Breadcrumbs");
+
+}

@@ -1,0 +1,81 @@
+﻿@model IMABS.Models.Footers.FooterViewModel
+
+@using Kentico.PageBuilder.Web.Mvc
+@using Kentico.Web.Mvc
+
+@using CMS.Helpers
+
+@{
+    string[] allowTextWidgets = { PagebuilderIdentifiers.TEXTWIDGET_IDENTIFIER };
+    string[] allowImageWidget = { PagebuilderIdentifiers.IMAGEWIDGET_IDENTIFIER };
+    string[] allowAtAGlanceWidget = { PagebuilderIdentifiers.ATAGLANCEWIDGET_IDENTIFIER };
+}
+
+
+<footer class="section" id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <p>
+                    <img src="@Model.FooterLogoUrl" alt="" width="200">
+                </p>
+                <p>
+                    @HTMLHelper.HTMLDecode(@Model.FooterLogoText)
+                </p>
+            </div>
+
+            @{var currentIndex = 0;}
+            @foreach (var item in Model.MainMenuDtos)
+            {
+                if (item.HasChildren && item.subMenu != null && item.subMenu.Count > 0)
+                {
+                    <div class='@(currentIndex == 0 ? "col-lg-2 offset-lg-1" : "col-lg-2")'>
+                        <h5>@item.MenuItemName</h5>
+                        <ul class="footer-links">
+                            @foreach (var subItem in item.subMenu)
+                            {
+                                <li><a href="@subItem.SubNavigationItemUrl">@subItem.SubNavigationItemName</a></li>
+                            }
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div class='@(currentIndex == 0 ? "col-lg-2 offset-lg-1" : "col-lg-2")'>
+                        <h5>@item.MenuItemName</h5>
+                    </div>
+                }
+                currentIndex++;
+            }
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr>
+                <p>
+                    @Model.FooterTNCText
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <ul class="row-list">
+                        @foreach (var item in Model.BottomMenus)
+                        {
+                            <li><p><a href="@item.NavigationItemUrl">@item.NavigationItemName</a></p></li>
+                        }
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <p class="copyright">
+                        @Model.CopyRightText
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+

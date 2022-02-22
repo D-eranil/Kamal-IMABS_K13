@@ -1,0 +1,62 @@
+﻿body .icon-panel .row {
+    min-height: 230px;
+}
+
+
+body .icon-panel h4:after {
+    content: '';
+    height: 1px;
+    width: 20px;
+    display: block;
+    position: relative;
+    background-color: var(--lightgrey);
+    margin-top: 15px;
+    margin-left: -10px;
+    left: 50%;
+    transition: all .2s ease-in;
+}
+
+body .icon-panel:hover h4:after {
+    width: 40px;
+    margin-left: -20px;
+    transform: scaleX(2);
+}
+
+.icon-panel.primary-feature {
+    background-color: var(--ingramblue);
+}
+    .icon-panel.primary-feature:hover, .icon-panel.secondary-feature:hover {
+        background-color: var(--black);
+    }
+
+.icon-panel.secondary-feature {
+    background-color: var(--darkgrey);
+}
+.flex-container {
+    display: flex;
+    align-items: center;
+}
+
+a.thumbnail-panel, a.icon-panel, .description-panel {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    background-color: var(--white);
+    margin-bottom: 30px;
+}
+
+/*If device is greater than or equal to 992px, then do*/
+@media only screen and (min-width: 992px) {
+    body .icon-panel h4:after {
+        margin-left: 0px;
+        left: 0;
+        color: red;
+    }
+
+    body .icon-panel:hover h4:after {
+        margin-left: 0px;
+        left: 0;
+        width: 60px;
+        transform: none;
+    }
+}

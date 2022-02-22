@@ -1,0 +1,556 @@
+﻿
+@addTagHelper *, Kentico.Content.Web.Mvc
+
+@model Kentico.Content.Web.Mvc.Routing.IPageViewModel<CMS.DocumentEngine.Types.IMABS.ProductCategoryDetail>
+
+@{
+    ViewBag.Title = Model.Page.DocumentName;
+}
+
+@using IMABS.Repositories
+@using IMABS.Models.ProductCategories.ProductCategoryTemplateTitles
+@using IMABS.Models.ProductCategories.ProductSubCategories
+@using IMABS.Models.Brands
+@using IMABS.Models.ResourceLinks
+@using System.Linq
+
+@{
+    string[] allowTextWidgets = { PagebuilderIdentifiers.TEXTWIDGET_IDENTIFIER };
+    string[] allowSupportWidgets = { PagebuilderIdentifiers.SUPPORTWIDGET_IDENTIFIER };
+
+    CategoryIndexRepository mCategoryIndexRepository = new CategoryIndexRepository();
+    var pageTitles = mCategoryIndexRepository.GetPages().Select(ProductCategoryTemplateTitleViewModel.GetViewModel).FirstOrDefault();
+    List<ProductSubCategoryViewModel> SubCategoryList = mCategoryIndexRepository
+                              .GetProductSubCategoryDetails(Model.Page.NodeAliasPath)
+                              .Select(ProductSubCategoryViewModel.GetViewModel)
+                              .ToList();
+
+
+    List<ProductSubCategoryViewModel> SubCategoryLst1 = SubCategoryList.Take(4).ToList();
+    List<ProductSubCategoryViewModel> SubCategoryLst2 = SubCategoryList.Count > 4 ? SubCategoryList.Skip(4).Take(4).ToList() : null;
+    List<ProductSubCategoryViewModel> SubCategoryLst3 = SubCategoryList.Count > 8 ? SubCategoryList.Skip(8).Take(4).ToList() : null;
+
+
+    var brandsList = Model.Page.Fields.Selector;
+
+    // Get the NodeGuids of Children page type saved against the Parent page type.
+    var childrenGuids = Model.Page.Fields.Selector.Split(new[] { ';' }, System.StringSplitOptions.RemoveEmptyEntries).ToList();
+
+
+    //get brand list
+    BrandRepository mBrandRepository = new BrandRepository();
+
+    var brandList = mBrandRepository.GetPagesByGuid(childrenGuids).Select(BrandViewModel.GetViewModel).ToList();
+
+    List<ResourceLinkViewModel> resourceList = mCategoryIndexRepository.GetResourceLinks(Model.Page.NodeAliasPath).Select(ResourceLinkViewModel.GetViewModel).ToList();
+
+
+    List<ResourceLinkViewModel> linkResources = resourceList.Where(x => x.Resource == "resource-link").ToList();
+    List<ResourceLinkViewModel> toolResources= resourceList.Where(x => x.Resource == "resource-tool").ToList();
+    List<ResourceLinkViewModel> pdfResources = resourceList.Where(x => x.Resource == "resource-pdf").ToList();
+    List<ResourceLinkViewModel> videoResources = resourceList.Where(x => x.Resource == "resource-video").ToList();
+
+
+}
+
+<style>
+    #resource-form .ktc-checkbox input[type=checkbox] {
+        margin: 5px;
+        -webkit-appearance: auto;
+        -moz-appearance: auto;
+        appearance: auto;
+        width: auto;
+    }
+
+    .ktc-default-section label {
+        color: var(--mediumgrey);
+        clear: both;
+    }
+
+    #resource-form .ktc-checkbox input + label {
+        margin-bottom: 10px;
+    }
+    /* #resource-form .ktc-checkbox label:after, .ktc-checkbox label:before, .ktc-radio label:after, .ktc-radio label:before {
+        background-color: #fff;
+        box-sizing: border-box;
+        content: "";
+        display: inline-block;
+        height: 15px;
+        left: 0;
+        line-height: 16px;
+        position: absolute;
+        top: 2px;
+        width: 15px;
+    }*/
+    body .icon-panel .row {
+        min-height: 180px;
+    }
+
+    #resource-form .mb-30 {
+        margin-bottom: 30px;
+    }
+
+    #resource-form .content-flex-end {
+        justify-content: flex-end;
+    }
+
+    #resource-form .btn.btn-primary.btn-brand {
+        float: right;
+    }
+
+    #resource-form .field-validation-error {
+        color: red;
+    }
+
+    #resource-form input[type=submit] {
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px 20px;
+        justify-content: flex-end;
+        color: var(--white);
+        background-color: var(--ingramblue);
+        border: 1px solid var(--ingramblue);
+        float: right;
+    }
+
+    form .error {
+        color: #ff0000;
+    }
+</style>
+
+
+<!-- SECTION - PRODUCT CATEGORY BANNER -->
+<div class="section hero product-category-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h6>@pageTitles.MainTitle</h6>
+                <h2 class="page-title">@Model.Page.Fields.Name</h2>
+                <h3 class="tagline">
+                    <editable-area area-identifier="CTTagline" area-options-allowed-widgets="@allowTextWidgets" />
+                    @*@Html.Kentico().EditableArea("CTTagline", allowedWidgets: allowTextWidgets)*@
+                </h3><!--hardcoded, not editable-->
+            </div>
+
+            <div class="col-md-4 flex-container">
+                <div class="product-category-icon">
+                    <img src="@Model.Page.Fields.Image.GetPath()" alt="@Model.Page.Fields.ImageAltText" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+
+        @if (SubCategoryLst1 != null && SubCategoryLst1.Count > 0)
+        {
+            <div class="row">
+                <div class="col-md-6">
+                    <br />
+                    <h6>@pageTitles.SubCategoryTitle</h6>
+                    <br />
+                </div>
+            </div>
+
+            <div class="row">
+                @if (SubCategoryLst1 != null && SubCategoryLst1.Count > 0)
+                {
+                    <div class="col-md-4">
+                        <ul class="sub-category-list">
+                            @foreach (var item in SubCategoryLst1)
+                            {
+                                <li class="col-md-4">@item.Name</li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                @if (SubCategoryLst2 != null && SubCategoryLst2.Count > 0)
+                {
+                    <div class="col-md-4">
+                        <ul class="sub-category-list">
+                            @foreach (var item in SubCategoryLst2)
+                            {
+                                <li class="col-md-4">@item.Name</li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                @if (SubCategoryLst3 != null && SubCategoryLst3.Count > 0)
+                {
+                    <div class="col-md-4">
+                        <ul class="sub-category-list">
+                            @foreach (var item in SubCategoryLst3)
+                            {
+                                <li class="col-md-4">@item.Name</li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+
+<!-- SECTION - BRANDS WE WORK WITH -->
+@if (brandList != null && brandList.Count > 0)
+{
+    <div class="section" id="brands">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    @*<h6>Brands we work with</h6>*@
+                    <h6>@pageTitles.BrandTitle</h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="container">
+                    <section class="logo-carousel slider" data-arrows="true">
+                        @foreach (var brand in brandList)
+                        {
+                            <div class="slide"><img src="@brand.ImageUrl"></div>
+                        }
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- SECTION - RESOURCES & SUPPORT -->
+<div class="section bgblue">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h6>@pageTitles.ResourceTitle</h6>
+                @*<h6>Resources & Support</h6>*@<!--hardcoded, not editable-->
+                <h3>@pageTitles.ResourceDescription</h3>
+                @*<h3>We offer you a dedicated team that understands your business needs and can deliver qualified, effective support for your sales efforts.</h3>*@<!--hardcoded, not editable-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <ul class="resource-list">
+                    @foreach (var item in pdfResources)
+                    {
+                        <li class="@item.Resource @item.ResourceType"><a href="@item.ItemUrl" data-path="@item.ResourcePath" data-bs-target="#resource-form" rtype="popup">@item.ItemName</a></li>
+                    }
+                    @{ var videoCount = 0;}
+                    @foreach (var item in videoResources)
+                    {
+                        <li class="@item.Resource @item.ResourceType"><a href="@item.ItemUrl" data-bs-toggle="modal" data-backdrop="static" data-bs-target="#video-title-@videoCount">@item.ItemName</a></li>
+                        videoCount++;
+                    }
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul class="resource-list">
+                    @foreach (var item in linkResources)
+                    {
+                        <li class="@item.Resource @item.ResourceType"><a href="@item.ItemUrl" target="@item.WindowTarget">@item.ItemName</a></li>
+                    }
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul class="resource-list">
+                    @foreach (var item in toolResources)
+                    {
+                        <li class="@item.Resource @item.ResourceType"><a href="@item.ItemUrl" target="@item.WindowTarget">@item.ItemName</a></li>
+                    }
+                </ul>
+            </div>
+        </div>  <br />
+        <div class="row">
+            <div class="col-md-6">
+                <editable-area area-identifier="CTAreaSupport1" area-options-allowed-widgets="@allowSupportWidgets" />
+                @*@Html.Kentico().EditableArea("CTAreaSupport1", allowedWidgets: allowSupportWidgets)*@
+            </div>
+            <div class="col-md-6">
+                <editable-area area-identifier="CTAreaSupport2" area-options-allowed-widgets="@allowSupportWidgets" />
+                @*@Html.Kentico().EditableArea("CTAreaSupport2", allowedWidgets: allowSupportWidgets)*@
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--POPUP: RESOURCE FORM-->
+<div class="modal fade popup" id="resource-form" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<h4 class="modal-title">
+                        Let us know who you are
+                    </h4>*@
+                <h4 class="modal-title">@pageTitles.PopupTitle</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="frmDownloadResource">
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="Name">Name</label>
+                        <input type="text" class="form-control" id="Name" name="Name" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="Email">Email address</label>
+                        <input type="email" class="form-control" id="Email" name="Email" aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Title">Title</label>
+                        <input type="text" class="form-control" id="Title" name="Title" placeholder="Title">
+                    </div>
+                    <div class="form-group">
+                        <label for="Organisation">Organisation</label>
+                        <input type="text" class="form-control" id="Organisation" name="Organisation" placeholder="Organisation">
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="CheckTerms" id="CheckTerms">
+                        <label class="form-check-label fine-print" for="exampleCheck1">I agree to the <a href="INSERTURL">terms and conditions</a></label>
+                    </div>
+                    <div class="form-group" style="display: none;">
+                        <label for="Organisation">Download File</label>
+                        <input type="text" class="form-control" id="DownloadFile" name="DownloadFile" placeholder="DownloadFile">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btnDownloadResource" class="btn btn-primary btn-brand">Download the resource &nbsp;&nbsp;<i class="fal fa-arrow-to-bottom"></i></button>
+                </div>
+            </form>
+
+
+
+
+            @*@{ Html.RenderAction(
+                           actionName: "ResourceForm",
+                           controllerName: "Form",
+                           routeValues: new { formName = "Resource", AdditionalText = Model.pageTitles }
+                           );
+                }*@
+
+            @*@Html.BeginForm("ResourceForm", "ProductCategoryDetail", new RouteValueDictionary { { "FormComponents", Model.formconfig } })
+                {
+                    <fieldset>
+                        @Html.Kentico().FormFields(Model.formconfig.FormComponents, Model.formconfig.FormConfiguration)
+                    </fieldset>
+                    <fieldset class="mb-30 ">
+                        <input type="checkbox" class="form-check-input" id="ChkAgreeTNC">
+                        <label class="form-check-label fine-print" for="exampleCheck1">&nbsp;&nbsp;I agree to the <a href="javascript:Void(0)">terms and conditions</a></label>
+                    </fieldset>
+                    <div class="content-flex-end">
+                        <button type="submit" onclick="return ValidateCheckBox()" class="btn btn-primary btn-brand">Download the resource &nbsp;&nbsp;<i class="fal fa-arrow-to-bottom"></i></button>
+                    </div>
+                }*@
+
+            @*@using (Html.BeginForm("ResourceForm", "ProductCategoryDetail", new RouteValueDictionary { { "FormComponents", Model.formconfig } }))
+                {
+                    <fieldset>
+                        @Html.Kentico().FormFields(Model.formconfig.FormComponents, Model.formconfig.FormConfiguration)
+                    </fieldset>
+                    <fieldset class="mb-30 ">
+                        <input type="checkbox" class="form-check-input" id="ChkAgreeTNC">
+
+                        <label class="form-check-label fine-print" for="exampleCheck1">&nbsp;&nbsp;@Model.pageTitles.PopupTNCText <a href="@Model.pageTitles.TNCLinkUrl">@Model.pageTitles.TNCLinkText</a></label>
+                        <label class="form-check-label fine-print" for="exampleCheck1">&nbsp;&nbsp;I agree to the <a href="INSERTURL">terms and conditions</a></label>
+                    </fieldset>
+                    <div class="content-flex-end">
+                        <button type="submit" onclick="return ValidateCheckBox()" class="btn btn-primary btn-brand">Download the resource &nbsp;&nbsp;<i class="fal fa-arrow-to-bottom"></i></button>
+                    </div>
+                }*@
+        </div>
+        @*<div class="modal-footer">
+                <button type="submit" class="btn btn-primary btn-brand">Download the resource &nbsp;&nbsp;<i class="fal fa-arrow-to-bottom"></i></button>
+            </div>*@
+    </div>
+</div>
+@*</div>*@
+
+
+<!--POPUP: VIDEO - Title 1-->
+@{ var videoItemCount = 0;}
+@foreach (var item in videoResources)
+{
+
+    <div class="modal fade popup video" id="video-title-@videoItemCount" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="Title @videoItemCount" aria-hidden="true">
+        <!--Note the unique ID (Eg video-title-1). This ID is targeted in the video resource's data-bs-target attribute, for more information see https://getbootstrap.com/docs/5.0/components/modal/-->
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" onclick="return CloseVideo('video-title-@videoItemCount');" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="videoWrapper">
+                        <iframe width="560" height="315" src="@item.ItemUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><!--User must paste this embed code in from YouTube-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    videoItemCount++;
+}
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        function CloseVideo(id) {
+            var _this = "#" + id;
+            var youtubeSrc = $(_this).find("iframe").attr("src");
+
+            if ($(_this).find("iframe").length > 0) {                     // checking if there is iframe only then it will go to next level
+                $(_this).find("iframe").attr("src", "");                // removing src on runtime to stop video
+                $(_this).find("iframe").attr("src", youtubeSrc);        // again passing youtube src value to iframe
+            }
+        }
+
+        //$("[id*=video-title-]").on('hidden.bs.modal', function () {
+        //    //callPlayer('yt-player', 'stopVideo');
+        //    var _this = this,
+        //        youtubeSrc = $(_this).find("iframe").attr("src");
+
+        //    if ($(_this).find("iframe").length > 0) {                     // checking if there is iframe only then it will go to next level
+        //        $(_this).find("iframe").attr("src", "");                // removing src on runtime to stop video
+        //        $(_this).find("iframe").attr("src", youtubeSrc);        // again passing youtube src value to iframe
+        //    }
+        //});
+
+        $(document).ready(function () {
+            $("#frmDownloadResource").validate({
+                rules: {
+                    Name: {
+                        required: true
+                    },
+                    Email: {
+                        required: true,
+                        email: true
+                    },
+                    CheckTerms: {
+                        required: true
+                    }
+                },
+                messages: {
+                    Name: "Please enter name",
+                    Email: { required: "Please enter email address", email: "Please enter valid email address" },
+                    CheckTerms: "Please agree terms and conditions"
+                },
+                submitHandler: function (form) {
+                    SaveData();
+                    ResetForm();
+                    $('#resource-form').modal('hide');
+                    $('a[data-bs-target="#resource-form"]').attr("rtype", "download");
+                }
+            });
+
+            $('a[data-bs-target="#resource-form"]').click(function (e) {
+                var filePath = $(this).attr("data-path");
+                var host = window.location.protocol + "//" + window.location.host;
+                var filename = filePath.substring(filePath.lastIndexOf('/') + 1);
+                if ($(this).attr("rtype") == "download") {
+                    DownloadFile(host + filePath, filename);
+                }
+                else {
+                    $("#DownloadFile").val(filePath);
+                    $('#resource-form').modal('show');
+                }
+                return false;
+            });
+
+        });
+
+        function SaveData() {
+            var valdata = $("#frmDownloadResource").serialize();
+
+            $.ajax({
+                url: "/Form/AddResourceDownloadData",
+                type: "POST",
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: valdata,
+                success: function (fileURL) {
+                    var filename = fileURL.substring(fileURL.lastIndexOf('/') + 1);
+                    DownloadFile(fileURL, filename);
+                }
+            });
+
+        }
+
+        function ResetForm() {
+            $("#Name").val("");
+            $("#Email").val("");
+            $("#Title").val("");
+            $("#Organisation").val("");
+            $("#DownloadFile").val("");
+            $('#CheckTerms').prop('checked', false);
+        }
+
+        function DownloadFile(fileURL, fileName) {
+            //Set the File URL.
+            var url = fileURL;
+
+            $.ajax({
+                url: url,
+                cache: false,
+                xhr: function () {
+                    var xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 2) {
+                            if (xhr.status == 200) {
+                                xhr.responseType = "blob";
+                            } else {
+                                xhr.responseType = "text";
+                            }
+                        }
+                    };
+                    return xhr;
+                },
+                success: function (data) {
+                    //Convert the Byte Data to BLOB object.
+                    var blob = new Blob([data], { type: "application/octetstream" });
+
+                    //Check the Browser type and download the File.
+                    var isIE = false || !!document.documentMode;
+                    if (isIE) {
+                        window.navigator.msSaveBlob(blob, fileName);
+                    } else {
+                        var url = window.URL || window.webkitURL;
+                        link = url.createObjectURL(blob);
+                        var a = $("<a />");
+                        a.attr("download", fileName);
+                        a.attr("href", link);
+                        $("body").append(a);
+                        a[0].click();
+                        $("body").remove(a);
+                    }
+                }
+            });
+        };
+
+
+        $(function () {
+            var chkInput = $("#resource-form .ktc-checkbox").find("input[type=checkbox]");
+            chkInput.removeClass("form-control");
+        });
+
+        function ValidateCheckBox() {
+            debugger;
+            var form = $("#form0");
+            var isValidaTitle = isValidInput("#TxtName_Value");
+            var isValidEmail = isValidInput("#TxtEmail_Email");
+            var cheked = $("#ChkAgreeTNC").prop("checked");
+            if (cheked && isValidaTitle && isValidEmail)
+                return true;
+            var err = "Please agree terms and conditions";
+            err += (isValidaTitle ? "" : ", enter Title");
+            err += (isValidEmail ? "" : ", enter Email")
+            //!isValidEmail ? ", Email" : "" : !isValidEmail ? ",enter Email" : ""
+            alert(err);
+            return false;
+        }
+
+        function isValidInput(obj) {
+            var objVal = $(obj).val();
+            if (objVal != "" && objVal.length > 0)
+                return true;
+            return false;
+        }
+    </script>
+}

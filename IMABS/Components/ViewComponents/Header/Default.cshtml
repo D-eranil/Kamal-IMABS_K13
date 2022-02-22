@@ -1,0 +1,103 @@
+﻿@model IMABS.Models.Headers.HeaderViewModel
+<header>
+    <!--Global Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark" id="global-navigation">
+        <div class="container">
+            <a class="navbar-brand" href="/Home">
+                <img src="@Model.HeaderLogoMobileUrl" alt="" class="mx-auto d-block img-fluid" width="100">
+                @*@Html.Kentico().EditableArea("HeaderImage", allowedWidgets: allowImageWidget)*@
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-lg-0">
+
+                    @foreach (var item in Model.TopMenus.Where(x => x.NodeLevel == "3" && x.NodeHasChild == "False").OrderBy(x => x.NodeOrder))
+                    {
+                        if (item.NodeLevel == "3" && item.NodeHasChild == "False")
+
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="@item.NavigationItemUrl"><i class="@item.IconClass"></i>&nbsp;&nbsp;@item.NavigationItemName.Trim()</a>
+                            </li>
+                        }
+                    }
+
+                    <form class="d-flex">
+                        <input class="form-control me-2 global-search" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-secondary btn-brand btn-small reverse" type="submit">Search</button>
+                    </form>
+
+                    @{ var accountData = Model.TopMenus.Where(x => x.NodeLevel == "3" && x.NodeHasChild == "True").FirstOrDefault();}
+
+                    @if (accountData != null)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false"><i class="fa-solid fa-circle-user"></i>&nbsp;&nbsp;@accountData.NavigationItemName</a>
+
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @foreach (var item in Model.TopMenus.Where(x => x.NodeLevel == "4"))
+                                {
+                                    <li><a class="dropdown-item" href="@item.NavigationItemUrl">@CMS.Helpers.HTMLHelper.HTMLDecode(item.NavigationItemName)</a></li>
+
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div> <!--End Container-->
+    </nav>
+
+    @*//@Url.Kentico().ImageUrl(article.Fields.Teaser.GetPath(), SizeConstraint.Empty)*@
+
+
+    <!--Primary Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark" id="primary-navigation">
+        <div class="container">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <a class="navbar-brand" href="/Home">
+                    <img src="@Model.HeaderLogoUrl" alt="" class="mx-auto d-block img-fluid" width="100">
+                </a>
+                <ul class="navbar-nav me-auto mb-lg-0">
+                    @foreach (var item in Model.MainMenuDtos)
+                    {
+                        if (item.HasChildren && item.subMenu != null && item.subMenu.Count > 0)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                   aria-expanded="false">@item.MenuItemName</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    @foreach (var subItem in item.subMenu)
+                                    {
+                                        <li><a class="dropdown-item" href="@subItem.SubNavigationItemUrl">@subItem.SubNavigationItemName</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="@item.NodeAliasPath">@item.MenuItemName</a>
+                            </li>
+                        }
+
+                    }
+                </ul>
+
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" style="flex-grow:0;">
+                <ul class="navbar-nav me-auto mb-lg-0">
+                    <li class="nav-item float-end">
+                        <a class="nav-link btn btn-primary btn-brand" href="@Model.MainMenuCTAButtonLink">
+                            @*Become a Partner*@
+                            @Model.MainMenuCTAButtonText
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div> <!--End Container-->
+    </nav>
+</header>

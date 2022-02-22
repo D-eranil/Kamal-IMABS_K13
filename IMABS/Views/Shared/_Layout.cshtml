@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="title" content="Ingram Micro Australia">
+    <meta name="description" content="Australia's Largest Technology Distributor">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ingrammicro.com.au/">
+    <meta property="og:title" content="Ingram Micro Australia">
+    <meta property="og:description" content="Australia's Largest Technology Distributor">
+
+    <!--Favicon-->
+    <link rel="icon" type="image/png" href="/Content/images/favicon.png" />    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <!-- Google Font - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="/Content/all.css" class="rel">
+    <!-- Slick Slider CSS -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/Content/style.css" class="rel">
+    @*<link rel="stylesheet" href="/Content/Footer.css" class="rel">*@
+
+    <title>@ViewBag.Title - Ingram Micro Australia</title>
+
+    <page-builder-styles />
+</head>
+<body>
+    
+
+    @await Component.InvokeAsync("Header")
+
+
+    @RenderBody()
+
+
+    @if (ViewBag != null && ViewBag.EnableCallToTactionBanner != null && ViewBag.EnableCallToTactionBanner)
+    {
+        <editable-area area-identifier="areaCTA1" area-options-default-section-identifier="IMABS.CallToActionBanner" />
+    }
+
+    @if (ViewBag != null && ViewBag.EnablePromotionsBanner != null && ViewBag.EnablePromotionsBanner)
+    {
+        <editable-area area-identifier="areaPromo1" area-options-default-section-identifier="IMABS.PromotionsBanner" />
+    }
+
+    @if (ViewBag != null && ViewBag.EnableBreadcrumb != null && ViewBag.EnableBreadcrumb)
+    {
+        @await Component.InvokeAsync("Breadcrumbs");
+    }
+
+
+    @await Component.InvokeAsync("Footer")
+
+
+    <!--JQuery-->
+    @*<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>*@
+
+    <!--Path to Popper -it is for dropsdowns etc in bootstrap-->
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity = "sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin = "anonymous"></script>
+
+    <!--Bootstrap-->
+    @*<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>*@
+    <script src = "https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity = "sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin = "anonymous"></script>
+
+
+    @* See ~/App_Start/ApplicationConfig.cs, ~/Controllers/HomeController.cs and ~/Views/Home/Index.cshtml
+        Uncomment the following line to add <script> tag referencing the Page builder script bundle. *@
+
+    <page-builder-scripts />
+
+    <!-- Slick Slider JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+
+
+
+    <!--Custom Javascript-->
+    <script src="/Scripts/main.js"></script>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

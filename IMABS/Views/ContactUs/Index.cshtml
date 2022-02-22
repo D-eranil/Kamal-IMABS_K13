@@ -1,0 +1,47 @@
+﻿@using Kentico.PageBuilder.Web.Mvc
+@using Kentico.Web.Mvc
+
+@model IMABS.Models.ContactUs.ContactUsViewModel
+
+@{
+	ViewBag.Title = "Contact Us";
+}
+<link href="~/Content/Page/contactus.css" rel="stylesheet" />
+
+@{
+	string[] allowContactWidget = { PagebuilderIdentifiers.CONTACTWIDGET_IDENTIFIER };
+	string[] allowSection = { PagebuilderIdentifiers.THREECOLUMNSECTION_IDENTIFIER };
+}
+
+<!-- SECTION - TITLE -->
+<div class="title">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="page-title">@Model.Title</h2>
+			</div>
+		</div>
+	</div>
+</div>
+@foreach (var item in Model.contactUsSections)
+{
+
+	<div class="section @item.SectionBackground">
+		<div class="container">
+			<div class="row">
+				<h3 class="mb-2">@item.SectionName</h3>
+				@if (!string.IsNullOrEmpty(item.ShortDescription))
+				{
+					<h4 class="text-muted text-black-50">@item.ShortDescription</h4>
+				}
+				@if (!string.IsNullOrEmpty(item.SectionDetail))
+				{
+					<div class="col-md-6">
+						<p>@item.SectionDetail</p>
+					</div>
+				}
+				<editable-area area-identifier="ContactusSection_@item.SectionName.Replace(" ","")" area-options-default-section-identifier="@PagebuilderIdentifiers.THREECOLUMNSECTION_IDENTIFIER" area-options-allowed-sections="@allowSection" area-options-allowed-widgets="@allowContactWidget" />
+			</div>
+		</div>
+	</div>
+}

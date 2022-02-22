@@ -1,0 +1,25 @@
+﻿@model IMABS.Components.Widgets.SupportWidget.SupportWidgetViewModel
+
+@*<a href="@Model.RedirectionUrl" class="panel icon-panel">
+		<div class="row flex-container">
+			<div class="col-lg-8">
+				<h4>
+					@Model.Title
+				</h4>
+			</div>
+			<div class="col-lg-4">
+				<img src="@Model.IconClass" alt="@Model.ImageAltText">
+			</div>
+		</div>
+	</a>*@
+@{string redirectionurl = (!string.IsNullOrEmpty(Model.RedirectionUrl)) ? Model.RedirectionUrl.Length > 0 ? Model.RedirectionUrl : "mailto:" + Model.EmailId : "mailto:" + Model.EmailId; ;}
+
+<a href="@redirectionurl" class="panel icon-panel @Model.IconClass">
+	<div class="row flex-container">
+		<div class="col-lg-10">
+			<h4>@Model.Title</h4>
+			<h5>@Model.Description</h5>
+		</div>
+		<div class="col-lg-2"><img src="@Model.ImageUrl"></div>
+	</div>
+</a>

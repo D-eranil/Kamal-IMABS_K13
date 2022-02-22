@@ -1,0 +1,93 @@
+﻿@model IMABS.Models.FeatureTemplates.FeatureTemplateViewModel
+
+@{
+    ViewBag.Title = Model.Name;
+}
+<link href="~/Content/Page/FeatureTemplate.css" rel="stylesheet" />
+<!-- SECTION - TITLE -->
+<div class="title bg-black hero pb-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h6 class="mt-5 ">@Model.ParentPageName</h6><!--Not Editable-->
+                <h2 class="page-title mt-3 mb-2">@Model.Name</h2><!--Feature Page Title-->
+                <h3 class="tagline mb-4">@Model.Description</h3><!--Feature Tagline: Editable with a standard text field-->
+                <p class="mb-1 text-muted"><strong>@Model.DocumentDate</strong></p><!--Date, should be system generated-->
+                <p class="text-muted"><strong>@Model.FeatureBy</strong></p> <!--This line is composed of two fields, 1. Full name, 2. Position. Can this by dynamically taken from their account details? If not, please make it two standard text fields that are optional. If not filled out they won't appear.-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- SECTION - BODY CONTENT -->
+<div class="section compact pb-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="wysiwyg mb-5">
+                    <!--This is a standard WYSIWYG text field-->
+                    @Html.Raw(Model.PageContent)
+                </div>
+            </div>
+            <div class="col-lg-4 offset-lg-1">
+                <blockquote class="panel bgingramblue offset">
+                    <p class="fs-4 text-white mb-0"><strong>@Model.Blockquote</strong></p>
+                </blockquote><!--Feature Quote Field: Editable text field-->
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.brands != null && Model.brands.Count > 0)
+{
+    <!-- SECTION - RELATED BRANDS -->
+    <div class="section" id="brands">
+        <!--Brand Banner: Admin should be able to select which vendors are relevant to the content of the feature. Their logos will appear in this section. If they do not select any, then this section will not appear.-->
+        <div class="container">
+            <div class="row">
+                <h6>@Model.BrandTitle</h6>
+            </div>
+            <div class="row">
+                <div class="container">
+                    <div class="col-lg-12">
+                        <section class="logo-carousel slider" data-arrows="true">
+                            @foreach (var brand in Model.brands)
+                            {
+                                <div class="slide"><img src="@brand.ImageUrl"></div>
+                            }
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- SECTION - FEATURE NAVIGATION -->
+<div class="section bgblue compact">
+    <!--This section allows the user to navigate between previous and next features (if applicable) if there are no previous/next features the respective link does not appear.-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="INSERTURL > Previous Feature Item" class="panel bg-white img-fluid mx-auto d-block mb-3">
+                            <!--Dynamically pull the previous feature item url (if any)-->
+                            <h6><i class="fal fa-arrow-circle-left"></i>&nbsp;Previous</h6>
+                            <h4 class="mb-1">Feature Title</h4><!--Dynamically pull from the feature title-->
+                            <p class="mb-1">Feature tagline</p><!--Dynamically pull from feature tagline-->
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="INSERTURL > Next Feature Item" class="panel bg-white img-fluid mx-auto d-block">
+                            <!--Dynamically pull the next feature item url (if applicable)-->
+                            <h6>Next <i class="fal fa-arrow-circle-right"></i></h6>
+                            <h4 class="mb-1">Feature title</h4><!--Dynamically pull from the feature title-->
+                            <p class="mb-1">Feature tagline</p> <!--Dynamically pull from feature tagline-->
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

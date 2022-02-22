@@ -1,0 +1,23 @@
+﻿@model IMABS.Models.Banners.CallToActionBanner.CallToActionBannerViewModel
+
+
+<div class="section inverted" id="cta-banner">
+    <div class="container-fluid g-0">
+        <div class="row g-0">
+            <div class="col-md-6 cta-banner-image"><img src="@Model.BackgroundImage" alt="" width="615"></div>
+            <div class="col-md-4 offset-md-1 flex-container">
+                <div class="cta-banner-content panel">
+                    <h6>@Model.Title</h6>
+                    <h6 style="display:none;">  <widget-zone /></h6>
+                    <h3>@Model.SubTitle</h3>
+                    <p>@Model.Description</p>
+                    <p>
+                        <a href="@Model.CTAButtonLink" class="btn btn-secondary btn-brand reverse">
+                            @Model.CTAButtonText
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

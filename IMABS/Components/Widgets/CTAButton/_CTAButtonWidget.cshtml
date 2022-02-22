@@ -1,0 +1,23 @@
+﻿@model IMABS.Components.Widgets.CTAButton.CTAButtonWidgetViewModel
+
+@if (Model.CTAText != null)
+{
+	var ctaClass="";
+	if (!string.IsNullOrEmpty(Model.CTACSSClass))
+	{
+		if (!Model.CTACSSClass.Contains("btn"))
+			ctaClass = "btn";
+
+		if (!Model.CTACSSClass.Contains("btn-primary"))
+		{
+			if (!Model.CTACSSClass.Contains("btn-secondary"))
+				ctaClass += " btn-secondary";
+		}
+
+		ctaClass = ctaClass + " " + Model.CTACSSClass;
+	}
+	<p class="@Model.CTAAlign">
+		<a href="@Model.CTAURL" target="@Model.CTATarget" class="@ctaClass">@Model.CTAText</a>
+	</p>
+}
+

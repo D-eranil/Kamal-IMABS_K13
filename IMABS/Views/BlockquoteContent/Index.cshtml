@@ -1,0 +1,109 @@
+﻿@model IMABS.Models.BlockquoteContents.BlockquoteContentViewModel
+
+@{
+    ViewBag.Title = Model.PageName;
+}
+
+@{
+    string[] allowAtAGlanceWidget = { PagebuilderIdentifiers.ATAGLANCEWIDGET_IDENTIFIER };
+    string[] allowContributionWidget = { PagebuilderIdentifiers.CONTRIBUTIONWIDGET_IDENTIFIER };
+    string[] allowTextWidget = { SystemComponentIdentifiers.RICH_TEXT_WIDGET_IDENTIFIER };
+
+    string[] allowSections = { PagebuilderIdentifiers.THREECOLUMNSECTION_IDENTIFIER, PagebuilderIdentifiers.FOURCOLUMNSECTION_IDENTIFIER };
+}
+
+<link href="~/Content/Page/WhyIngramMicro.css" rel="stylesheet" />
+
+
+<!-- SECTION - HERO TITLE -->
+<div class="section hero service-banner">
+    <div class="service-banner-img">
+        <div class="">
+            <div class="row">
+                <!--Banner images are not editable-->
+                <img src="@Model.MobileBanner" class="w-100 carousel-img-mobile" alt="...">
+                <img src="@Model.TabletBanner" class="w-100 carousel-img-tablet" alt="...">
+                <img src="@Model.DesktopBanner" class="w-100 carousel-img-desktop" alt="...">
+            </div>
+        </div>
+    </div>
+    <div class="service-banner-title">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h2 class="page-title">@Model.PageName</h2><!--This is the page title-->
+                    <h3 class="tagline integrity-blue3 mb-4">@Html.Raw(Model.Subheading)</h3><!-- Tagline - Editable Text Field-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- SECTION - BODY CONTENT -->
+<div class="section pb-0 compact">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="wysiwyg mb-4">
+                    <!-- Body Content - Editable WYSIWYG Field-->
+                    @Html.Raw(Model.PageContent)
+                </div>
+            </div>
+            <div class="col-lg-4 offset-lg-1">
+                <!-- Feature Quote - Editable Text Field-->
+                <blockquote class="panel bgingramblue offset">
+                    <p class="fs-4 text-white mb-0"><strong>@Model.BlockquoteText</strong></p>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.IsWhyIngramPage)
+{
+    <!-- Wiget SECTION - AT A GLANCE -->
+    <!--This section was pulled from the homepage, please include the same here with the ability to change the text and icons.-->
+    <div class="section" id="at-a-glance">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h6><editable-area area-identifier="AAGtitle" 
+                                       area-options-allowed-widgets="@allowTextWidget"></editable-area> </h6>
+                    <h3><editable-area area-identifier="AAGSubtitle" 
+                                       area-options-allowed-widgets="@allowTextWidget"></editable-area></h3>
+                </div>
+            </div>
+            <div class="row">
+                <editable-area area-identifier="atAGlaceArea" 
+                               area-options-default-section-identifier="@PagebuilderIdentifiers.FOURCOLUMNSECTION_IDENTIFIER" 
+                               area-options-allowed-widgets="@allowAtAGlanceWidget"></editable-area>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+    <!-- SECTION - OUR CONTRIBUTIONS -->
+    <div class="section mb-5 our-contributions">
+        <div class="container">
+            <div class="row">
+                <h6>
+                    <editable-area area-identifier="contributionTitle" 
+                                   area-options-allowed-widgets="@allowTextWidget"></editable-area>
+                    @*Our Contributions*@
+                </h6><!--Editable Text Field-->
+                <h3>
+                    <editable-area area-identifier="contributionSubtitle" 
+                                   area-options-allowed-widgets="@allowTextWidget"></editable-area>
+                    @*Over the last few years, Ingram Micro has...*@
+                </h3><!--Editable Text Field-->
+            </div>
+            <div class="row">
+                <editable-area area-identifier="contributionArea" 
+                               area-options-default-section-identifier="@PagebuilderIdentifiers.THREECOLUMNSECTION_IDENTIFIER" 
+                               area-options-allowed-widgets="@allowContributionWidget"></editable-area>
+            </div>
+
+        </div>
+    </div>
+}

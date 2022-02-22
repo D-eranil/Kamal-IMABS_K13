@@ -1,0 +1,35 @@
+﻿@model IMABS.Models.HelpItemTemplates.HelpItemTemplateViewModel
+
+@{
+    ViewBag.Title = Model.PageName;
+
+}
+<!--CSS Reference-->
+<link href="~/Content/Page/needhelp.css" rel="stylesheet" />
+
+<div class="title">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="page-title">@Model.ParentPageName</h2>
+                <h2 class="tagline">@Model.Heading</h2><!--The Help Item Entity Title-->
+                @Html.Raw(Model.Content)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section bgblue compact">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">@Html.Raw(Model.SearchTitle)</div>
+        </div>
+        <div class="row g-0 search-full-width">
+            <div class="col-md-9">
+                <input type="text" placeholder="@Model.SearchPlaceholder" />
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-primary btn-brand btn-large">@Model.SearchButtonText</button>
+            </div>
+        </div>
+    </div>
+</div>

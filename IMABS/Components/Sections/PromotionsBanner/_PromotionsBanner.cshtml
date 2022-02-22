@@ -1,0 +1,23 @@
+﻿@using Kentico.PageBuilder.Web.Mvc
+@model IMABS.Models.Banners.PromotionsBanners.PromotionsBannerViewModel
+
+<div class="section">
+    <div class="container">
+        <div class="row g-0" id="promo">
+
+            <div class="col-lg-6 panel">
+                <h3>@Model.Title</h3>
+                <h3 style="display:none;">  <widget-zone /></h3>
+                <h3 class="white">@Model.SubTitle</h3>
+                <p>
+                    <a href="@Model.CTAButtonLink" class="btn btn-secondary btn-brand reverse">
+                        @Model.CTAButtonText
+                    </a>
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <img src="@Model.ImageUrl" alt="" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
