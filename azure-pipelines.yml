@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  name: 'default'
+  name: default
 
 variables:
   solution: '**/*.sln'
@@ -37,6 +37,18 @@ steps:
     configuration: '$(buildConfiguration)'
 
 - task: SonarCloudAnalyze@1
+
+- task: SonarQubePrepare@5
+  inputs:
+    scannerMode: 'MSBuild'
+    projectKey: 'Anil0284_IMABS'
+    projectName: 'IMABS'
+
+- task: SonarQubePublish@5
+  inputs:
+    pollingTimeoutSec: '300'
+
+
 
 - task: VSTest@2
   inputs:
